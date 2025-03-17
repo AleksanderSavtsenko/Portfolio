@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get the target section id
             const targetId = this.getAttribute('href');
             
-            // Update URL hash
             window.location.hash = targetId;
             
             // Show appropriate section
@@ -45,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Update section on hash change (browser back/forward buttons)
     window.addEventListener('hashchange', function() {
         const hash = window.location.hash || '#home';
         showSection(hash);
@@ -66,8 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formValues[key] = value;
             }
             
-            // In a real application, you would send this data to a server
-            // For now, we'll just log it and show a success message
+            // Soon
             console.log('Form submitted:', formValues);
             
             // Show success message
@@ -108,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Get the platform from the icon class
                 const platform = this.querySelector('i').className.split(' ')[1].split('-')[1];
                 
-                // In a real application, this would open the social media profile
                 alert(`Opening ${platform} profile!`);
             }
         });
