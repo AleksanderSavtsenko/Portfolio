@@ -399,3 +399,53 @@ textarea {
     height: 50%;
     width: 150%;
 }
+.form-message {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-weight: 500;
+    animation: slideIn 0.3s ease;
+    position: relative;
+}
+
+.success-message {
+    background-color: rgba(0, 224, 255, 0.15);
+    border-left: 4px solid var(--primary-color);
+    color: var(--text-color);
+}
+
+.error-message {
+    background-color: rgba(255, 76, 76, 0.15);
+    border-left: 4px solid #ff4c4c;
+    color: var(--text-color);
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-out {
+    animation: fadeOut 0.5s ease forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.submit-btn:disabled {
+    background-color: #00b0c8;
+    cursor: not-allowed;
+    opacity: 0.8;
+}

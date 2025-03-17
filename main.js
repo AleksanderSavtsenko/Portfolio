@@ -2,13 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navigation functionality
     const navLinks = document.querySelectorAll('nav ul li a');
     const sections = document.querySelectorAll('.section');
-    
-    // Initial URL handling to show correct section on page load
     const initialHash = window.location.hash || '#home';
     showSection(initialHash);
     
     function showSection(sectionId) {
-        // Remove active class from all links and sections
         navLinks.forEach(navLink => {
             if(navLink.getAttribute('href') === sectionId) {
                 navLink.classList.add('active');
@@ -33,10 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             window.location.hash = targetId;
             
-            // Show appropriate section
             showSection(targetId);
-            
-            // Smooth scroll to the top
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -49,30 +43,82 @@ document.addEventListener('DOMContentLoaded', function() {
         showSection(hash);
     });
     
-    // Form submission
+    // Form submission with Formspree
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form values
+            const submitBtn = this.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
             const formData = new FormData(this);
-            const formValues = {};
             
-            for (let [key, value] of formData.entries()) {
-                formValues[key] = value;
-            }
-            
-            // Soon
-            console.log('Form submitted:', formValues);
-            
-            // Show success message
-            alert('Your message has been sent successfully!');
-            
-            // Reset form
-            this.reset();
+            // Send data to Formspree
+            fetch('https://formspree.io/f/mkgjgqbb', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                // Show success message
+                showFormMessage('success', 'Your message has been sent successfully!');
+                
+                // Reset form
+                contactForm.reset();
+            })
+            .catch(error => {
+                // Show error message
+                showFormMessage('error', 'Oops! There was a problem sending your message. Please try again.');
+                console.error('Error:', error);
+            })
+            .finally(() => {
+
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
         });
+    }
+    
+    // Create function to show form message
+    function showFormMessage(type, message) {
+
+        const existingMessage = document.querySelector('.form-message');
+        if (existingMessage) {
+            existingMessage.remove();
+        }
+        
+        // Create message element
+        const messageElement = document.createElement('div');
+        messageElement.className = `form-message ${type}-message`;
+        messageElement.textContent = message;
+        
+
+        const contactForm = document.getElementById('contact-form');
+        contactForm.parentNode.insertBefore(messageElement, contactForm.nextSibling);
+        
+        // Auto-remove message after 5 seconds
+        setTimeout(() => {
+            if (messageElement.parentNode) {
+                messageElement.classList.add('fade-out');
+                setTimeout(() => {
+                    if (messageElement.parentNode) {
+                        messageElement.remove();
+                    }
+                }, 500);
+            }
+        }, 5000);
     }
     
     // View Certificate buttons
@@ -82,14 +128,9 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Get certificate name from parent element
             const certificateName = this.closest('.certificate-item').querySelector('h3').textContent;
-            
-            // In a real application, this would open the certificate
             alert(`Viewing certificate: ${certificateName}`);
             
-            // You could redirect to an actual certificate like this:
-            // window.location.href = 'path/to/your/certificate.pdf';
         });
     });
     
@@ -126,12 +167,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
         
-        // Start typing effect when home section is visible
         if (document.getElementById('home').classList.contains('active')) {
             setTimeout(typeWriter, 1000);
         }
         
-        // Restart typing effect when home button is clicked
         navLinks.forEach(link => {
             if (link.getAttribute('href') === '#home') {
                 link.addEventListener('click', () => {
