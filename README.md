@@ -11,3 +11,6 @@ You can view the live demo of the website here:
 [Demo Site](https://aleksandersavtsenko.github.io/Portfolio/)
 ## AI Used
 This project was built with the help of **AI** for code suggestions and enhancements.
+## I plan to continue improving and updating it by adding:
+**Design updates** to make the site look even better.
+A **light/dark mode** for better user experience.
