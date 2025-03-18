@@ -248,6 +248,10 @@ p {
     padding: 30px;
     border-radius: 10px;
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
 }
 
 .certificate-item:hover {
@@ -255,15 +259,32 @@ p {
     box-shadow: 0 10px 20px rgba(0, 224, 255, 0.1);
 }
 
+.certificate-item h3 {
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
 .certificate-date {
     display: block;
     color: var(--primary-color);
-    margin: 10px 0 20px;
+    margin: 5px 0 15px;
+    font-size: 14px;
 }
 
-.view-certificate {
+.certificate-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin: 15px 0;
+    border: 1px solid rgba(0, 224, 255, 0.2);
+}
+
+.view-certificate, .download-btn {
     font-size: 14px;
     padding: 8px 20px;
+    margin-top: auto;
+    align-self: flex-start;
 }
 
 /* Contact Section */
