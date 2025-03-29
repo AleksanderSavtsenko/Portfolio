@@ -1,9 +1,9 @@
 :root {
-    --primary-color: #00e0ff;
-    --dark-bg: #1c1f26;
-    --darker-bg: #14161c;
+    --primary-color: #6c63ff;
+    --dark-bg: #0a0b0e;
+    --darker-bg: #070809;
     --text-color: #ffffff;
-    --text-secondary: #cccccc;
+    --text-secondary: #a0a0a0;
     --transition: all 0.3s ease;
 }
 
@@ -32,6 +32,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px 0;
+    z-index: 1000;
 }
 
 .logo {
@@ -63,6 +64,7 @@ nav ul li a:hover, nav ul li a.active {
     display: none;
     min-height: calc(100vh - 100px);
     padding: 50px 0;
+    background: linear-gradient(to bottom, var(--dark-bg), var(--darker-bg));
 }
 
 .section.active {
@@ -129,7 +131,7 @@ p {
     transition: var(--transition);
 }
 
-.social-icons a:hover {
+social-icons a:hover {
     background-color: var(--primary-color);
     color: var(--darker-bg);
     transform: translateY(-3px);
@@ -138,7 +140,8 @@ p {
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    background-color: var(--primary-color);
+    background: linear-gradient(45deg, var(--primary-color), #8d86ff);
+    box-shadow: 0 4px 15px rgba(108, 99, 255, 0.2);
     color: var(--darker-bg);
     border: none;
     border-radius: 25px;
@@ -244,7 +247,9 @@ p {
 }
 
 .certificate-item {
-    background-color: var(--darker-bg);
+    backdrop-filter: blur(10px);
+    background: rgba(10, 11, 14, 0.6);
+    border: 1px solid rgba(108, 99, 255, 0.1);
     padding: 30px;
     border-radius: 10px;
     transition: var(--transition);
@@ -256,7 +261,7 @@ p {
 
 .certificate-item:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 224, 255, 0.1);
+    box-shadow: 0 10px 20px #6c63ff;
 }
 
 .certificate-item h3 {
@@ -277,7 +282,7 @@ p {
     object-fit: cover;
     border-radius: 5px;
     margin: 15px 0;
-    border: 1px solid rgba(0, 224, 255, 0.2);
+    border: 1px solid rgba(51, 24, 58, 0.2);
 }
 
 .view-certificate, .download-btn {
@@ -322,7 +327,7 @@ p {
     transition: var(--transition);
 }
 
-.contact-item a:hover {
+contact-item a:hover {
     color: var(--primary-color);
 }
 
@@ -337,8 +342,9 @@ form {
 input, textarea {
     width: 100%;
     padding: 12px;
-    background-color: var(--darker-bg);
-    border: 1px solid #2e3239;
+    background: rgba(10, 11, 14, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(108, 99, 255, 0.1);
     border-radius: 5px;
     color: var(--text-color);
     outline: none;
@@ -414,12 +420,14 @@ textarea {
         grid-template-columns: 1fr;
     }
 }
+
 .certificate-image {
     padding: 10px;
     max-width: 100%;
     height: 50%;
     width: 150%;
 }
+
 .form-message {
     width: 100%;
     padding: 12px 20px;
@@ -465,8 +473,78 @@ textarea {
         opacity: 0;
     }
 }
+
 .submit-btn:disabled {
     background-color: #00b0c8;
     cursor: not-allowed;
     opacity: 0.8;
+}
+
+/* Burger Menu */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+}
+
+.burger-line {
+    width: 25px;
+    height: 3px;
+    background-color: var(--text-color);
+    margin: 2px;
+    transition: var(--transition);
+}
+
+.burger-menu.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media screen and (max-width: 768px) {
+    .burger-menu {
+        display: flex;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background-color: var(--darker-bg);
+        padding: 80px 20px;
+        transition: var(--transition);
+        z-index: 999;
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 15px 0;
+    }
+
+    header {
+        position: relative;
+        padding: 20px;
+    }
+}
+
+section {
+    z-index: 1;
 }
